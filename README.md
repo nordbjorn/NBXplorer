@@ -276,7 +276,7 @@ Support has been added for Azure Service Bus as a message broker. Currently 2 Qu
 
 Filters should be applied on the client, if required.
 
-To activate Azure Service Bus Mesages you should add an Azure Service Bus Connection string to your config file or on the command line.
+To activate Azure Service Bus Messages you should add an Azure Service Bus Connection string to your config file or on the command line.
 
 * To use queues you should specify the queue names you wish to use
 * To use topics you should specify the topic names you wish to use
