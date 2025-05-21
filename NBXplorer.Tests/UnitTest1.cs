@@ -2109,8 +2109,9 @@ namespace NBXplorer.Tests
 					Assert.True(blockEvent.EventId != 0);
 					Assert.Equal(expectedBlockId, blockEvent.Hash);
 					Assert.NotEqual(0, blockEvent.Height);
-
+					Assert.NotEqual(default, blockEvent.BlockTime);
 					Assert.Equal(1, blockEvent.Confirmations);
+					Assert.NotEqual(default, blockEvent.BlockTime);
 
 					legacy?.ListenDerivationSchemes(new[] { pubkey });
 					await tester.SendToAddressAsync(tester.AddressOf(pubkey, "0/1"), Money.Coins(1.0m));
@@ -2513,6 +2514,7 @@ namespace NBXplorer.Tests
 					var blockEvent = await WaitBlock(connected, expectedBlockId, Cancel);
 					Assert.Equal(expectedBlockId, blockEvent.Hash);
 					Assert.NotEqual(0, blockEvent.Height);
+					Assert.NotEqual(default, blockEvent.BlockTime);
 
 					legacy?.ListenTrackedSources(new[] { pubkey });
 					tester.SendToAddress(pubkey.Address, Money.Coins(1.0m));

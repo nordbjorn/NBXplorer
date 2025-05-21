@@ -855,6 +855,11 @@
             "type": "integer",
             "description": "Number of confirmations (typically 1 for a new block).",
             "example": 1
+          },
+          "blockTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the block as reported by the block header."
           }
         }
       },
