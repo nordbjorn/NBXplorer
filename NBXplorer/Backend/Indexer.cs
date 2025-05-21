@@ -448,14 +448,14 @@ namespace NBXplorer.Backend
 			var seenAt = State == BitcoinDWaiterState.NBXplorerSynching
 							? block.Header.BlockTime
 							: DateTimeOffset.UtcNow;
-			await SaveMatches(conn, block.Transactions, slimChainedBlock, true, seenAt);
+			await SaveMatches(conn, block.Transactions, slimChainedBlock, true, seenAt, block.Header.BlockTime);
 			EventAggregator.Publish(new RawBlockEvent(block, this.Network), true);
 			lastIndexedBlock = slimChainedBlock;
 		}
 
 		SlimChainedBlock _NodeTip;
 
-		private async Task SaveMatches(DbConnectionHelper conn, List<Transaction> transactions, SlimChainedBlock slimChainedBlock, bool fireEvents, DateTimeOffset? seenAt = null)
+		private async Task SaveMatches(DbConnectionHelper conn, List<Transaction> transactions, SlimChainedBlock slimChainedBlock, bool fireEvents, DateTimeOffset? seenAt = null, DateTimeOffset? blockTime = null)
 		{
 			foreach (var tx in transactions)
 				tx.PrecomputeHash(false, true);
@@ -480,7 +480,8 @@ namespace NBXplorer.Backend
 					Hash = slimChainedBlock.Hash,
 					Height = slimChainedBlock.Height,
 					PreviousBlockHash = slimChainedBlock.Previous,
-					Confirmations = confirmations
+					Confirmations = confirmations,
+					BlockTime = blockTime ?? now
 				};
 				await Repository.SaveEvent(conn, blockEvent);
 				EventAggregator.Publish(blockEvent);

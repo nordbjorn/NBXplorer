@@ -24,6 +24,8 @@ namespace NBXplorer.Models
 
 		public long Confirmations { get; set; }
 
+		public DateTimeOffset BlockTime { get; set; }
+
 		[JsonIgnore]
 		public override string EventType => "newblock";
 
