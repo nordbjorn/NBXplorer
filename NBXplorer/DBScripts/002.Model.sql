@@ -415,7 +415,7 @@ END
 $$;
 CREATE TRIGGER ins_after_insert_trigger AFTER INSERT ON ins REFERENCING NEW TABLE AS new_ins FOR EACH STATEMENT EXECUTE PROCEDURE ins_after_insert_trigger_proc();
 
--- When an ins is inserted, it shoud sent the spent_tx_id and spent_id of the outs it spends.
+-- When an ins is inserted, it should set the spent_tx_id and spent_id of the outs it spends.
 CREATE OR REPLACE FUNCTION ins_after_insert2_trigger_proc() RETURNS trigger LANGUAGE plpgsql AS $$
 DECLARE
   r RECORD;
